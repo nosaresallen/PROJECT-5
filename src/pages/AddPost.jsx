@@ -71,7 +71,7 @@ function AddPost () {
 
     return (
         <>
-            <Container component='main' maxWidth='xs' sx={{bgcolor: 'white', marginTop: '5px', borderRadius: 2, boxShadow: 2, padding: 2, position:'sticky'}} >
+            <Container component='main' maxWidth='md' sx={{bgcolor: 'white', borderRadius: 0, boxShadow: 2, position:'sticky', padding: 2, marginTop: 1}} >
                 <Box >
                     {/* <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                         <Avatar sx={{ width: 100, height: 100 }}>
@@ -79,15 +79,9 @@ function AddPost () {
                         
                     </Box> */}
                     <Box sx={{ marginBottom: 1, marginTop: 2}}>
-                    {userData.name ? (
-                        <Typography sx={{fontSize: 15}}>
-                            Spill the tea! <strong>{userData.name}</strong>. <br /> 
-                        </Typography>
-                    ) : (
-                        <Typography sx={{fontSize: 15}}>
-                            Loading...
-                        </Typography>
-                    )}
+                    <Typography sx={{ fontSize: 15 }}>
+                        Spill the tea! <strong>{userData.name}</strong>. <br />
+                    </Typography>
                         
                     </Box>
                     <Box sx={{ marginBottom: '20px', display: 'flex'}}>
@@ -98,7 +92,7 @@ function AddPost () {
                         size="small"
                         label="What's the tea?"
                         multiline
-                        color="success"
+                        color="warning"
                         maxRows={4}
                         variant="standard"
                         onChange={(e)=>{setPost(e.target.value)}}
@@ -109,10 +103,10 @@ function AddPost () {
                             {/* <IconButton  >
                                 
                             </IconButton> */}
-                            <InsertPhotoIcon onClick={handleImage}  sx={{color: '#004643', fontSize: 16, marginY: 3, marginX: 2}}/>
+                            <InsertPhotoIcon onClick={handleImage}  sx={{color: '#14213d', fontSize: 16, marginY: 3, marginX: 2}}/>
                         </Tooltip>
                         <Tooltip title="Post" placement="top">
-                            <SendIcon  onClick={createPost} sx={{color: '#004643', fontSize: 16, marginY: 3, marginX: -1}}/>
+                            <SendIcon  onClick={createPost} sx={{color: '#f9bc60', fontSize: 16, marginY: 3, marginX: -1}}/>
                         </Tooltip>
                         </Box>
                         

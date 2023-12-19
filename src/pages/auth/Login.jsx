@@ -34,14 +34,6 @@ function Login () {
         if(email !== '' && password !== ''){
             signInWithEmailAndPassword(auth, email, password)
             .then(()=>{
-                Swal.fire({
-                    toast: true,
-                    title: "Login successful!",     
-                    icon: "success",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-            })
             navigate('/')
         }).catch(() => {
             Swal.fire({
@@ -98,7 +90,7 @@ function Login () {
                     padding: '50px'
                 }}>
                     
-                    <Avatar sx={{ marginTop: '-20px', bgcolor: '#004643', marginBottom: '10px' }}>
+                    <Avatar sx={{ marginTop: '-20px', bgcolor: '#14213d', marginBottom: '10px' }}>
                         <CoffeeTwoToneIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5" sx={{ fontWeight: "bold", color: '#001e1d' }}>
@@ -108,6 +100,7 @@ function Login () {
                         margin='normal'
                         required
                         fullWidth
+                        color='warning'
                         size="small"
                         id='email'
                         type='email'
@@ -122,6 +115,7 @@ function Login () {
                         margin='normal'
                         required
                         fullWidth
+                        color='warning'
                         size="small"
                         id='password'
                         type='password'
@@ -136,9 +130,9 @@ function Login () {
                         variant='contained'
                         sx={{
                             mt: 3,
-                            bgcolor: '#004643',
+                            bgcolor: '#14213d',
                             transition: 'background-color 0.3s',
-                            '&:hover':{backgroundColor: '#abd1c6'}
+                            '&:hover':{backgroundColor: '#f9bc60'}
                         }}
                         onClick={()=> handleLogin()}
                     >
@@ -147,7 +141,7 @@ function Login () {
                     <Grid container justifyContent='flex-end' sx={{marginTop: '5px'}}>
                         <Grid item>
                             <Typography variant='body2'>
-                                <RouterLink to='/register' style={{textDecoration: 'none', color: '#001e1d', fontSize: 12}}>
+                                <RouterLink to='/register' style={{textDecoration: 'none', color: '#14213d', fontSize: 12}}>
                                     {`Don't have an account? Register here.`}
                                 </RouterLink>
                             </Typography>

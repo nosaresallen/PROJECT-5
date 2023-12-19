@@ -28,14 +28,6 @@ export default function BottomNavigations() {
                 const auth = getAuth(firebasaApp); 
                 signOut(auth)
                     .then(() => {
-                        Swal.fire({
-                            toast: true,
-                            title: 'Logged out successfully.',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            timerProgressBar: true,
-                        });
                         navigate('/login');
                     })
                     .catch((error) => {

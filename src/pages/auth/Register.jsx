@@ -52,6 +52,9 @@ function Register () {
                     updateProfile(auth.currentUser,{
                         displayName: name
                     })
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 10);
                 })
                 .catch(() => {
                     Swal.fire({
@@ -106,7 +109,7 @@ function Register () {
                     borderRadius: '10px',
                 }}>
                     
-                    <Avatar sx={{ marginTop: '-20px', bgcolor: '#004643', marginBottom: '10px' }}>
+                    <Avatar sx={{ marginTop: '-20px', bgcolor: '#14213d', marginBottom: '10px' }}>
                         <CoffeeTwoToneIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5" sx={{ fontWeight: "bold", color: '#001e1d' }}>
@@ -116,6 +119,7 @@ function Register () {
                         margin='normal'
                         required
                         fullWidth
+                        color='warning'
                         size="small"
                         id='name'
                         type='name'
@@ -128,6 +132,7 @@ function Register () {
                         margin='normal'
                         required
                         fullWidth
+                        color='warning'
                         size="small"
                         id='email'
                         type='email'
@@ -142,6 +147,7 @@ function Register () {
                         margin='normal'
                         required
                         fullWidth
+                        color='warning'
                         size="small"
                         id='password'
                         type='password'
@@ -154,6 +160,7 @@ function Register () {
                         margin='normal'
                         required
                         fullWidth
+                        color='warning'
                         size="small"
                         id='password'
                         type='password'
@@ -167,9 +174,9 @@ function Register () {
                         variant='contained'
                         sx={{
                             mt: 3,
-                            bgcolor: '#004643',
+                            bgcolor: '#14213d',
                             transition: 'background-color 0.3s',
-                            '&:hover':{backgroundColor: '#abd1c6'}
+                            '&:hover':{backgroundColor: '#f9bc60'}
                         }}
                         onClick={()=>handleRegister()}
                     >
@@ -178,7 +185,7 @@ function Register () {
                     <Grid container justifyContent='flex-end' sx={{marginTop: '5px'}}>
                         <Grid item>
                             <Typography variant='body2'>
-                                <RouterLink to='/login' style={{textDecoration: 'none', color: '#001e1d', fontSize: 12}}>
+                                <RouterLink to='/login' style={{textDecoration: 'none', color: '#14213d', fontSize: 12}}>
                                     {`Already have an account? Login here.`}
                                 </RouterLink>
                             </Typography>

@@ -109,12 +109,11 @@ function Post ({postID, name, caption, email, timeElapsed}) {
             <Card  sx={{
                 maxWidth: '100%',
                 marginTop: '5px',
-                backgroundColor: 'rgba(33, 246, 255, 0.64)',
-                borderRadius: '16px',
+                backgroundColor: 'white',
+                borderRadius: '0px',
                 boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                 backdropFilter: 'blur(5px)',
                 WebkitBackdropFilter: 'blur(5px)',
-                border: '1px solid rgba(33, 246, 255, 0.38)',
                 borderColor: '#004643',
                 padding: 0,
                 }}
@@ -154,43 +153,6 @@ function Post ({postID, name, caption, email, timeElapsed}) {
                                 </MenuItem>
                             </Menu>
                         </>
-                        // <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        //     <Tooltip title="Edit post" placement="top">
-                        //         <EditIcon onClick={handleOpen} sx={{ fontSize: 13, marginX: -1, color: 'green' }} />
-                        //     </Tooltip>
-                        //     <Tooltip title="Delete post" placement="top">
-                        //         <DeleteIcon onClick={handleDelete} sx={{ fontSize: 13, color: '#d00303' }} />
-                        //     </Tooltip>
-                        // </CardActions>
-                        // <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        // <Tooltip title="More options" placement="top">
-                        //     <IconButton onClick={handleClick}>
-                        //     <MoreVertIcon sx={{ fontSize: 18 }} />
-                        //     </IconButton>
-                        // </Tooltip>
-                        // <Menu
-                        //     anchorEl={anchorEl}
-                        //     open={Boolean(anchorEl)}
-                        //     onClose={handleCloseTool}
-                        //     anchorOrigin={{
-                        //     vertical: 'top',
-                        //     horizontal: 'right',
-                        //     }}
-                        //     transformOrigin={{
-                        //     vertical: 'top',
-                        //     horizontal: 'right',
-                        //     }}
-                        // >
-                        //     <MenuItem onClick={handleEdit}>
-                        //     <EditIcon sx={{ fontSize: 18, marginRight: 1 }} />
-                        //         Edit post
-                        //     </MenuItem>
-                        //     <MenuItem onClick={handleDelete}>
-                        //     <DeleteIcon sx={{ fontSize: 18, marginRight: 1 }} />
-                        //         Delete post
-                        //     </MenuItem>
-                        // </Menu>
-                        // </CardActions>
                     )
                 }
             />
@@ -223,7 +185,7 @@ function Post ({postID, name, caption, email, timeElapsed}) {
                 </DialogActions>
             </Dialog>
                 <CardContent>
-                        <Typography variant='body2' color='#004643'>
+                        <Typography variant='body2' color='#000000'>
                             {isEditMode ? editedCaption : caption}
                         </Typography>
                     </CardContent>
@@ -234,13 +196,13 @@ function Post ({postID, name, caption, email, timeElapsed}) {
                         alt="Paella dish"
                     /> */}
                     <CardActions sx={{display: 'flex', justifyContent: 'flex-start', padding: 1}}>
-                    {/* <IconButton aria-label="like" onClick={handleLikeClick}>
+                    <IconButton aria-label="like" onClick={handleLikeClick}>
                         {liked ? (
-                            <FavoriteIcon sx={{ fontSize: 20, color: 'red' }} />
+                            <FavoriteIcon sx={{ fontSize: 20, color: '#f9bc60' }} />
                         ) : (
                             <FavoriteBorderOutlinedIcon sx={{ fontSize: 20, color: 'grey' }} />
                         )}
-                    </IconButton> */}
+                    </IconButton>
                         
                     </CardActions>
                 </Card>

@@ -106,11 +106,11 @@ function Home () {
                                 />
                             ))}
                             <Box>
-                            <Typography sx={{fontSize:'12px',marginTop: 1, display:'flex', justifyContent:'center', color: '#c5c6c7'}}>
+                            <Typography sx={{fontSize:'12px',marginTop: 1, display:'flex', justifyContent:'center', color: '#14213d'}}>
                                 No post available
                                 <Tooltip title="Refresh" placement="top">
                                     <IconButton onClick={refreshAndScrollToTop}>
-                                        <ReplayIcon sx={{ marginY:-2, marginX: 0, color: '#c5c6c7'}}/>
+                                        <ReplayIcon sx={{ marginY:-2, marginX: 0, color: '#14213d'}}/>
                                     </IconButton>
                                 </Tooltip>
                             </Typography>

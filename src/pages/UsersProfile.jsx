@@ -87,7 +87,7 @@ function UsersProfile () {
 
     return (
         <>
-            <Container component='main' maxWidth='xs'  sx={{marginTop: '120px'}} >
+            <Container component='main' maxWidth='xs'  sx={{marginTop: '120px', height:'100vh'}} >
                 <Box  >
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                         <Avatar sx={{ width: 100, height: 100 }}>
@@ -99,7 +99,7 @@ function UsersProfile () {
                         </Typography>
                     </Box>
                     <Box  sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
-                        <Button sx={{ bgcolor: '#004643',transition: 'background-color 0.3s',
+                        <Button sx={{ bgcolor: '#14213d',transition: 'background-color 0.3s',
                             '&:hover':{bgcolor: '#f9bc60'}}} onClick={handleOpen} variant="contained">
                             Edit Profile
                         </Button>

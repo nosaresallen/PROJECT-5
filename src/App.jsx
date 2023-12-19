@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Layout from './pages/Layout';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
-import UsersProfile from "./pages/UserProfile";
+import UsersProfile from "./pages/UsersProfile";
 import AddPost from "./pages/AddPost";
 
 function App() {
