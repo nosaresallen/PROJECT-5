@@ -36,7 +36,9 @@ function Register () {
 
     },[]);
 
-    
+    // setTimeout(() => {
+    //     window.location.reload();
+    // }, 5);
 
     const handleRegister = () => {
         if (
@@ -52,9 +54,7 @@ function Register () {
                     updateProfile(auth.currentUser,{
                         displayName: name
                     })
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 10);
+                    
                 })
                 .catch(() => {
                     Swal.fire({

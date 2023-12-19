@@ -80,7 +80,7 @@ function AddPost () {
                     </Box> */}
                     <Box sx={{ marginBottom: 1, marginTop: 2}}>
                     <Typography sx={{ fontSize: 15 }}>
-                        Spill the tea! <strong>{userData.name}</strong>. <br />
+                        Spill the tea!🗣️ <br />
                     </Typography>
                         
                     </Box>
