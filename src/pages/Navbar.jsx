@@ -11,6 +11,7 @@ import { getAuth, signOut  } from "firebase/auth";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Tooltip from '@mui/material/Tooltip';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 
@@ -56,8 +57,8 @@ function Navbar () {
                 <Grid sx={{marginX: 2}}> 
                 <RouterLink to='/' style={{textDecoration: 'none', color: '#f9bc60'}}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Avatar src={'/src/assets/whisper.png'} sx={{ bgcolor: '#f9bc60', marginRight: 1 }} />
-                        <Typography variant='h4' component='div' sx={{ flexGrow: 1, fontSize: '20px' }}>
+                        {/* <Avatar src={'/src/assets/whisper.png'} sx={{ bgcolor: '#f9bc60', marginRight: 1 }} /> */}
+                        <Typography variant='h4' component='div' sx={{ flexGrow: 1, fontSize: '25px' }}>
                             <strong>Gossip.</strong>
                         </Typography>
                     </Box>
@@ -69,6 +70,11 @@ function Navbar () {
                             <RouterLink to='/usersprofile' >
                                 <Tooltip title="Profile" placement="bottom">
                                     <AccountCircleIcon sx={{fontSize: 28, color: '#f9bc60', marginRight: 2}}/>
+                                </Tooltip>
+                            </RouterLink>
+                            <RouterLink to='/about' >
+                                <Tooltip title="About" placement="bottom">
+                                    <InfoIcon sx={{fontSize: 28, color: '#f9bc60', marginRight: 2}}/>
                                 </Tooltip>
                             </RouterLink>
                             <RouterLink onClick={handleLogout}>

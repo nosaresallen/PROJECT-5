@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function Footer () {
 
@@ -7,7 +8,7 @@ function Footer () {
         <>
         <Box sx={{ marginTop: 5, display:'flex', justifyContent:'center', color: '#14213d'}}>
             <Typography sx={{fontSize: '13px'}}>
-                Made with 💗 by <strong>Allen Nosares</strong>
+                Made with <FavoriteIcon sx={{fontSize: '18px', marginY: '-3px', color: '#f9bc60'}}/> by <strong>Allen Nosares</strong>
             </Typography>              
         </Box>
         </>

@@ -5,6 +5,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import UsersProfile from "./pages/UsersProfile";
 import AddPost from "./pages/AddPost";
+import About from "./pages/About";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path='usersprofile' element={<UsersProfile/>}/>
           <Route path='addpost' element={<AddPost/>}/>
+          <Route path='about' element={<About/>}/>
         </Route>
         <Route>
             <Route path='login' element={<Login/>}/>

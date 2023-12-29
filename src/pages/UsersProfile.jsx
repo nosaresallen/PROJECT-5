@@ -12,39 +12,17 @@ import Post from "./Post";
 import { Dialog, DialogTitle, DialogContent, TextField } from "@mui/material";
 
 import { useEffect, useState } from 'react';
-import firebasaApp from './firebaseConfig';
+import firebasaApp, {storage} from './firebaseConfig';
 import { getFirestore, collection, onSnapshot, addDoc, Timestamp} from "firebase/firestore";
 import { onAuthStateChanged,getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
+
 function UsersProfile () {
     const db = getFirestore(firebasaApp);
+    const [open, setOpen] = useState(false);
     const [userName, setUserName] = useState('');
-
-    //This will display the name of the user
-    useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in, get the user's name
-                setUserName(user.displayName || 'No Name'); // Set the user's name to state
-            } else {
-                // User is signed out
-                setUserName(''); // Reset the user's name
-            }
-        });
-        return () => {
-            // Unsubscribe the listener when the component unmounts
-            unsubscribe();
-        };
-    }, []);
-
-    
-
-    // const editProfile = () => {
-    //     alert('Edit profile');
-    // }
-
+    const [post, setPost] = useState([]);
     const [profile, setProfile] = useState({
         work: '',
         education: '',
@@ -54,7 +32,37 @@ function UsersProfile () {
         birthday: '',
         status: ''
     });
-    const [open, setOpen] = useState(false); // Dialog open/close state
+
+    // This will display the name of the user
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUserName(user.displayName || 'No Name');
+            } else {
+                setUserName(''); // Reset the user's name
+            }
+        });
+        
+        
+        return () => {
+            unsubscribe();
+        };
+        
+    }, []);
+
+    // onSnapshot(collection(db, 'posts'), snapshot => {
+    //     setPost(snapshot.docs.map(post.data()));
+    // })
+
+    //Retreive data
+    // onSnapshot(collection(db, 'usersprofile'), (snapshot) => {
+    //     const usersData = snapshot.docs.map((doc) => ({
+    //         id: doc.id, // Accessing the ID of the document
+    //         ...doc.data() // Accessing the data of the document
+    //     }));
+    //     setPost(usersData);
+    // });
 
     const handleOpen = () => {
         setOpen(true);
@@ -65,14 +73,13 @@ function UsersProfile () {
     };
 
     const handleSave = () => {
-        // Logic to save updated profile object to the database
         try {
             const docRef =  addDoc(collection(db, 'usersprofile'), profile);
             console.log('Document written with ID: ', docRef.id);
-            setOpen(false); // Close the dialog after saving
         } catch (e) {
             console.error('Error adding document: ', e);
         }
+        setOpen(false);
     };
     // const handleEdit = () => {
     //     const updatePost = doc(db, 'posts', postID);
@@ -90,7 +97,7 @@ function UsersProfile () {
             <Container component='main' maxWidth='xs'  sx={{marginTop: '120px', height:'100vh'}} >
                 <Box  >
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
-                        <Avatar sx={{ width: 100, height: 100 }}>
+                        <Avatar  sx={{ width: 100, height: 100 }}>
                         </Avatar>
                     </Box>
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
@@ -99,6 +106,7 @@ function UsersProfile () {
                         </Typography>
                     </Box>
                     <Box  sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
+                        
                         <Button sx={{ bgcolor: '#14213d',transition: 'background-color 0.3s',
                             '&:hover':{bgcolor: '#f9bc60'}}} onClick={handleOpen} variant="contained">
                             Edit Profile
@@ -107,39 +115,39 @@ function UsersProfile () {
                     
                     <Box >
                             <hr />
-                            
-                            
-                            <Typography variant="body1  ">
-                            <WorkIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Work:</strong> 
+
+                            <Typography variant="body1">
+                            <WorkIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Work:</strong> {profile.work}
                             </Typography>
 
                             <Typography variant="body1">
-                            <SchoolIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Education:</strong> 
+                            <SchoolIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Education:</strong> {profile.education}
                             </Typography>
 
                             <Typography variant="body1">
-                            <FmdGoodIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Address:</strong> 
+                            <FmdGoodIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Address:</strong> {profile.address}
                             </Typography>
 
                             <Typography variant="body1">
-                            <PhoneIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Contact:</strong> 
+                            <PhoneIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Contact:</strong> {profile.contact}
                             </Typography>
 
                             <Typography variant="body1">
-                            <PersonIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Gender:</strong> 
+                            <PersonIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Gender:</strong> {profile.gender}
                             </Typography>
 
                             <Typography variant="body1">
-                            <CakeIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Birthady:</strong> 
+                            <CakeIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Birthday:</strong> {profile.birthday}
                             </Typography>
 
                             <Typography variant="body1">
-                            <FavoriteIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Status:</strong> 
+                            <FavoriteIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Status:</strong> {profile.status}
                             </Typography>
                         </Box>
 
                         <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Edit Profile</DialogTitle>
+                    <TextField type="file">Upload</TextField>
                     <DialogContent>
                         {Object.keys(profile).map((key) => (
                             <TextField
@@ -149,6 +157,7 @@ function UsersProfile () {
                                 onChange={(e) => setProfile({ ...profile, [key]: e.target.value })}
                                 fullWidth
                                 margin="normal"
+                                size="small"
                             />
                         ))}
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>

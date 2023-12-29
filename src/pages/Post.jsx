@@ -75,32 +75,6 @@ function Post ({postID, name, caption, email, timeElapsed}) {
     //Delete function
     const handleDelete = () => {
         deleteDoc(doc(db, 'posts', postID ))
-        // Swal.fire({
-        //     toast: true,
-        //     title: "Delete this post?",
-        //     icon: "warning",
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#008080',
-        //     cancelButtonColor: '#000000',
-        //     confirmButtonText: "Yes, delete it!"
-        // }).then(async(result)=>{
-        //     if(result.isConfirmed) {
-        //         try {
-        //             deleteDoc(doc(db, 'posts', postID ))
-        //             Swal.fire({
-        //                 toast: true,
-        //                 title: "Deleted successfully!",
-        //                 icon: "success",
-        //                 showConfirmButton: false,
-        //                 timer: 1500,
-        //                 timerProgressBar: true,
-        //             });
-        //         }catch (error) {
-        //             console.error('Error deleting document: ', error);
-        //         }
-        //     }
-        // });
-        
     }
     
     return (

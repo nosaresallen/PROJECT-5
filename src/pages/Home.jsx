@@ -44,6 +44,7 @@ function Home () {
         });
     }, []);
 
+
     //This function will calculate the current time and post creation time
     function getTimeElapsed(date_posted) {
         const now = new Date();
