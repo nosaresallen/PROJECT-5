@@ -150,11 +150,15 @@ function UsersProfile () {
 
                         <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Edit Profile</DialogTitle>
-                    <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                        <Input type="file" onChange={(e)=> {setImageUpload(e.target.files[0])}} sx={{border: 1}}>Upload</Input>
-                    </Box>
+                    
                     
                     <DialogContent>
+                    
+                    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                        <Avatar  sx={{ width: 70, height: 70, marginX: 2 }}>
+                        </Avatar>
+                        <Input type="file" onChange={(e)=> {setImageUpload(e.target.files[0])}} sx={{border: 0}}>Upload</Input>
+                    </Box>
                         {fieldOrder.map((key) => (
                             <TextField
                                 key={key}
@@ -164,6 +168,7 @@ function UsersProfile () {
                                 fullWidth
                                 margin="normal"
                                 size="small"
+                                color='warning'
                             />
                         ))}
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>

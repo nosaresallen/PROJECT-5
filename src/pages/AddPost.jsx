@@ -80,7 +80,7 @@ function AddPost () {
                     </Box> */}
                     <Box sx={{ marginBottom: 1, marginTop: 2}}>
                     <Typography sx={{ fontSize: 15 }}>
-                        Spill the tea!🗣️ <br />
+                        Spill the gossip, <strong style={{color: '#f9bc60'}}>{userData.name}!</strong> <br />
                     </Typography>
                         
                     </Box>
@@ -90,7 +90,7 @@ function AddPost () {
                         fullWidth
                         id="post"
                         size="small"
-                        label="What's the tea?"
+                        label="What is the gossip?"
                         multiline
                         color="warning"
                         maxRows={4}

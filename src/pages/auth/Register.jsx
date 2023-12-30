@@ -26,7 +26,7 @@ function Register () {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // window.location.reload();
+                window.location.reload();
                 navigate('/');
                 
                 
