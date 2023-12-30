@@ -1,4 +1,4 @@
-import { Container, Box, Typography, Button, Input } from "@mui/material";
+import { Container, Box, Typography, Button, Input, dividerClasses } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
@@ -13,8 +13,8 @@ import { Dialog, DialogTitle, DialogContent, TextField } from "@mui/material";
 
 import { useEffect, useState } from 'react';
 import firebasaApp, {storage} from './firebaseConfig';
-import { ref } from 'firebase/storage';
-import { getFirestore, collection, onSnapshot, addDoc, Timestamp, doc, setDoc, getDoc } from "firebase/firestore";
+import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
+import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged,getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -89,18 +89,85 @@ function UsersProfile () {
     //     handleClose(false); // Exit edit mode after saving
     // };
 
-    const uploadImage = () => {
-        alert('upload image');
-    }
+    //Firebase storage
+    const [file, setFile] = useState(null);
+    const [imageUpload, setImageUpload] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [uploadError, setUploadError] = useState('');
+
+    const handleUpload = async () => {
+        try {
+            const fileName = new Date().getTime().toString() + file.name;
+            const imageRef = ref(storage, `Profiles/${userId}/${fileName}`); // Include userId in the file path
+            await uploadBytes(imageRef, file);
     
-    const [imageUpload, setImageUpload] = useState(null);
+            const downloadURL = await getDownloadURL(imageRef);
+            saveImageUrlToFirestore(downloadURL); // Save the URL to Firestore
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            setUploadError('Error uploading image. Please try again.');
+        }
+    };
+    
+    const saveImageUrlToFirestore = async (downloadURL) => {
+        const userRef = doc(db, 'usersprofile', userId); // Assuming 'usersprofile' is your collection
+        try {
+            await updateDoc(userRef, { imageUrl: downloadURL }); // Save imageUrl to Firestore
+            setImageUrl(downloadURL); // Update state with the image URL
+            setUploadError(''); // Clear any previous upload error
+        } catch (error) {
+            console.error('Error updating image URL in Firestore:', error);
+            setUploadError('Error saving image URL. Please try again.');
+        }
+    };
+    
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUserId(user.uid); // Set the user ID
+                fetchUserProfiles(user.uid); // Fetch user profile data
+                setUserName(user.displayName || 'No Name');
+            } else {
+                setUserId(null); // Reset user ID if no user is logged in
+                setProfile({}); // Reset profile data
+            }
+        });
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+    
+    const fetchUserProfiles = async (userId) => {
+        const docRef = doc(db, 'usersprofile', userId);
+        try {
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                setProfile(userData); // Set other profile data
+                setImageUrl(userData.imageUrl); // Set the image URL from Firestore
+            }
+        } catch (error) {
+            console.error('Error fetching document:', error);
+        }
+    };
+    
+    useEffect(() => {
+        if (userId) {
+            fetchUserProfile(userId); // Fetch user profile including image URL
+        }
+    }, [userId]);
+
     return (
         <>
             <Container component='main' maxWidth='xs'  sx={{marginTop: '120px', height:'100vh'}} >
                 <Box  >
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
-                        <Avatar  sx={{ width: 100, height: 100 }}>
-                        </Avatar>
+                    {imageUrl ? (
+                    <Avatar src={imageUrl} alt="Profile" sx={{ width: 100, height: 100 }} />
+                ) : (
+                    <Typography variant="body2">Upload</Typography>
+                )}
                     </Box>
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                         <Typography  variant="h5">
@@ -155,9 +222,10 @@ function UsersProfile () {
                     <DialogContent>
                     
                     <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                        <Avatar  sx={{ width: 70, height: 70, marginX: 2 }}>
+                        <Avatar src={imageUrl} sx={{ width: 70, height: 70, marginX: 2 }}>
                         </Avatar>
-                        <Input type="file" onChange={(e)=> {setImageUpload(e.target.files[0])}} sx={{border: 0}}>Upload</Input>
+                        <Input type="file" onChange={(e)=> {setFile(e.target.files[0])}} sx={{border: 0}}>Upload</Input>
+                        <Button onClick={handleUpload}>Upload</Button>
                     </Box>
                         {fieldOrder.map((key) => (
                             <TextField
