@@ -13,6 +13,8 @@ import Footer from './Footer';
 import Tooltip from '@mui/material/Tooltip';
 
 import Grid from '@mui/material/Unstable_Grid2';
+
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 function Home () {
     const db = getFirestore(firebasaApp);
     const auth = getAuth(firebasaApp);
@@ -20,6 +22,31 @@ function Home () {
     let navigate = useNavigate();
 
     const [post, setPost] = useState([]);
+
+    const storage = getStorage(firebasaApp); // Get the Firebase Storage instance from your firebaseConfig
+
+    const [imageUrls, setImageUrls] = useState([]);
+
+    useEffect(() => {
+        const storageRef = ref(storage, 'Profiles/'); // Reference to the 'Profiles' folder in Firebase Storage
+
+        const fetchImageURLs = async () => {
+            try {
+                const imageList = await listAll(storageRef);
+                const imageURLs = await Promise.all(
+                    imageList.items.map(async (itemRef) => {
+                        const url = await getDownloadURL(itemRef);
+                        return url;
+                    })
+                );
+                setImageUrls(imageURLs);
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        };
+
+        fetchImageURLs();
+    }, [storage]);
 
     useEffect(()=> {
         //Authentication
@@ -104,6 +131,7 @@ function Home () {
                                     postID={postRecord.id}
                                     date_posted={postRecord.date_posted.toDate()}
                                     timeElapsed={getTimeElapsed(postRecord.date_posted.toDate())}
+                                    imageUrl={imageUrls}
                                 />
                             ))}
                             <Box>

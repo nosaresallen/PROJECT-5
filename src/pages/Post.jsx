@@ -31,7 +31,7 @@ import { getFirestore,deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useState } from 'react';
 
-function Post ({postID, name, caption, email, timeElapsed}) {
+function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
     const db = getFirestore(firebasaApp);
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -93,7 +93,7 @@ function Post ({postID, name, caption, email, timeElapsed}) {
                 }}
                 >
             <CardHeader
-                avatar={<Avatar sx={{fontSize:12}}>Profile</Avatar>}
+                avatar={<Avatar sx={{fontSize:12}}>{name}</Avatar>}
                 title={<strong>{name}<VerifiedIcon sx={{fontSize: 13, color: '#f9bc60', marginY: '-1px'}}/></strong>}
                 subheader= {<small><PublicIcon sx={{fontSize: 13, color: 'grey', marginY: "-2px"}}/> · {timeElapsed}</small> }
                 action={
@@ -130,6 +130,7 @@ function Post ({postID, name, caption, email, timeElapsed}) {
                     )
                 }
             />
+            
             <Dialog 
                 open={open}
                 onClose={handleClose}
