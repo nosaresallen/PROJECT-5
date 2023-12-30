@@ -1,4 +1,4 @@
-import { Container, Box, Typography, Button } from "@mui/material";
+import { Container, Box, Typography, Button, Input } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
@@ -13,7 +13,8 @@ import { Dialog, DialogTitle, DialogContent, TextField } from "@mui/material";
 
 import { useEffect, useState } from 'react';
 import firebasaApp, {storage} from './firebaseConfig';
-import { getFirestore, collection, onSnapshot, addDoc, Timestamp} from "firebase/firestore";
+import { ref } from 'firebase/storage';
+import { getFirestore, collection, onSnapshot, addDoc, Timestamp, doc, setDoc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged,getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +24,8 @@ function UsersProfile () {
     const [open, setOpen] = useState(false);
     const [userName, setUserName] = useState('');
     const [post, setPost] = useState([]);
+    const [userId, setUserId] = useState(null);
+    const fieldOrder = ['work', 'education', 'address', 'contact', 'gender', 'birthday', 'status'];
     const [profile, setProfile] = useState({
         work: '',
         education: '',
@@ -33,37 +36,6 @@ function UsersProfile () {
         status: ''
     });
 
-    // This will display the name of the user
-    useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUserName(user.displayName || 'No Name');
-            } else {
-                setUserName(''); // Reset the user's name
-            }
-        });
-        
-        
-        return () => {
-            unsubscribe();
-        };
-        
-    }, []);
-
-    // onSnapshot(collection(db, 'posts'), snapshot => {
-    //     setPost(snapshot.docs.map(post.data()));
-    // })
-
-    //Retreive data
-    // onSnapshot(collection(db, 'usersprofile'), (snapshot) => {
-    //     const usersData = snapshot.docs.map((doc) => ({
-    //         id: doc.id, // Accessing the ID of the document
-    //         ...doc.data() // Accessing the data of the document
-    //     }));
-    //     setPost(usersData);
-    // });
-
     const handleOpen = () => {
         setOpen(true);
     };
@@ -72,12 +44,42 @@ function UsersProfile () {
         setOpen(false);
     };
 
-    const handleSave = () => {
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUserId(user.uid); // Set the user ID
+                fetchUserProfile(user.uid); // Fetch user profile data
+                setUserName(user.displayName || 'No Name');
+            } else {
+                setUserId(null); // Reset user ID if no user is logged in
+                setProfile({}); // Reset profile data
+            }
+        });
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
+    const fetchUserProfile = async (userId) => {
+        const docRef = doc(db, 'usersprofile', userId);
         try {
-            const docRef =  addDoc(collection(db, 'usersprofile'), profile);
-            console.log('Document written with ID: ', docRef.id);
-        } catch (e) {
-            console.error('Error adding document: ', e);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                setProfile(docSnap.data());
+            } 
+        } catch (error) {
+            console.error('Error fetching document:', error);
+        }
+    };
+
+    const handleSave = async () => {
+        const docRef = doc(db, 'usersprofile', userId);
+        try {
+            await setDoc(docRef, profile); // Set or update the user's profile in Firestore
+            console.log('Document updated');
+        } catch (error) {
+            console.error('Error updating document:', error);
         }
         setOpen(false);
     };
@@ -87,11 +89,11 @@ function UsersProfile () {
     //     handleClose(false); // Exit edit mode after saving
     // };
 
-    const addProfile = () => {
-
+    const uploadImage = () => {
+        alert('upload image');
     }
     
-
+    const [imageUpload, setImageUpload] = useState(null);
     return (
         <>
             <Container component='main' maxWidth='xs'  sx={{marginTop: '120px', height:'100vh'}} >
@@ -111,6 +113,10 @@ function UsersProfile () {
                             '&:hover':{bgcolor: '#f9bc60'}}} onClick={handleOpen} variant="contained">
                             Edit Profile
                         </Button>
+                    </Box>
+                    <Box>
+                    <Input type="file" onChange={(e)=> {setImageUpload(e.target.files[0])}}>Upload</Input>
+                    <Button onClick={uploadImage}>Upload Image</Button>
                     </Box>
                     
                     <Box >
@@ -147,9 +153,9 @@ function UsersProfile () {
 
                         <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Edit Profile</DialogTitle>
-                    <TextField type="file">Upload</TextField>
+                    
                     <DialogContent>
-                        {Object.keys(profile).map((key) => (
+                        {fieldOrder.map((key) => (
                             <TextField
                                 key={key}
                                 label={key.charAt(0).toUpperCase() + key.slice(1)}

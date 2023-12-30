@@ -169,7 +169,7 @@ function Post ({postID, name, caption, email, timeElapsed}) {
                         image="https://www.techspot.com/images2/trivia/bigimage/2017/2017-03-19-image-46.jpg"
                         alt="Paella dish"
                     /> */}
-                    <CardActions sx={{display: 'flex', justifyContent: 'flex-start', padding: 1}}>
+                    {/* <CardActions sx={{display: 'flex', justifyContent: 'flex-start', padding: 1}}>
                     <IconButton aria-label="like" onClick={handleLikeClick}>
                         {liked ? (
                             <FavoriteIcon sx={{ fontSize: 20, color: '#f9bc60' }} />
@@ -178,7 +178,7 @@ function Post ({postID, name, caption, email, timeElapsed}) {
                         )}
                     </IconButton>
                         
-                    </CardActions>
+                    </CardActions> */}
                 </Card>
             </Container>
         </>
