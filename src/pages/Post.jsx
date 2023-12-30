@@ -93,7 +93,7 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
                 }}
                 >
             <CardHeader
-                avatar={<Avatar sx={{fontSize:12}}>{name}</Avatar>}
+                avatar={<Avatar src={imageUrl} sx={{fontSize:12}}></Avatar>}
                 title={<strong>{name}<VerifiedIcon sx={{fontSize: 13, color: '#f9bc60', marginY: '-1px'}}/></strong>}
                 subheader= {<small><PublicIcon sx={{fontSize: 13, color: 'grey', marginY: "-2px"}}/> · {timeElapsed}</small> }
                 action={
@@ -130,7 +130,6 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
                     )
                 }
             />
-            
             <Dialog 
                 open={open}
                 onClose={handleClose}

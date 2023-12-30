@@ -78,6 +78,12 @@ function UsersProfile () {
         try {
             await setDoc(docRef, profile); // Set or update the user's profile in Firestore
             console.log('Document updated');
+            const fileName = new Date().getTime().toString() + file.name;
+            const imageRef = ref(storage, `Profiles/${userId}/${fileName}`); // Include userId in the file path
+            await uploadBytes(imageRef, file);
+    
+            const downloadURL = await getDownloadURL(imageRef);
+            saveImageUrlToFirestore(downloadURL); // Save the URL to Firestore
         } catch (error) {
             console.error('Error updating document:', error);
         }
@@ -95,19 +101,19 @@ function UsersProfile () {
     const [imageUrl, setImageUrl] = useState('');
     const [uploadError, setUploadError] = useState('');
 
-    const handleUpload = async () => {
-        try {
-            const fileName = new Date().getTime().toString() + file.name;
-            const imageRef = ref(storage, `Profiles/${userId}/${fileName}`); // Include userId in the file path
-            await uploadBytes(imageRef, file);
+    // const handleUpload = async () => {
+    //     try {
+    //         const fileName = new Date().getTime().toString() + file.name;
+    //         const imageRef = ref(storage, `Profiles/${userId}/${fileName}`); // Include userId in the file path
+    //         await uploadBytes(imageRef, file);
     
-            const downloadURL = await getDownloadURL(imageRef);
-            saveImageUrlToFirestore(downloadURL); // Save the URL to Firestore
-        } catch (error) {
-            console.error('Error uploading image:', error);
-            setUploadError('Error uploading image. Please try again.');
-        }
-    };
+    //         const downloadURL = await getDownloadURL(imageRef);
+    //         saveImageUrlToFirestore(downloadURL); // Save the URL to Firestore
+    //     } catch (error) {
+    //         console.error('Error uploading image:', error);
+    //         setUploadError('Error uploading image. Please try again.');
+    //     }
+    // };
     
     const saveImageUrlToFirestore = async (downloadURL) => {
         const userRef = doc(db, 'usersprofile', userId); // Assuming 'usersprofile' is your collection
@@ -164,10 +170,11 @@ function UsersProfile () {
                 <Box  >
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                     {imageUrl ? (
-                    <Avatar src={imageUrl} alt="Profile" sx={{ width: 100, height: 100 }} />
-                ) : (
-                    <Typography variant="body2">Upload</Typography>
-                )}
+                            <Avatar src={imageUrl} alt="Profile" sx={{ width: 100, height: 100 }} />
+                        ) : (
+                            <Avatar alt="Profile" sx={{ width: 100, height: 100 }} />
+                        )}
+                
                     </Box>
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                         <Typography  variant="h5">
@@ -222,10 +229,9 @@ function UsersProfile () {
                     <DialogContent>
                     
                     <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                        <Avatar src={imageUrl} sx={{ width: 70, height: 70, marginX: 2 }}>
-                        </Avatar>
+                        <Avatar src={imageUrl} sx={{ width: 70, height: 70, marginX: 2 }}></Avatar>
                         <Input type="file" onChange={(e)=> {setFile(e.target.files[0])}} sx={{border: 0}}>Upload</Input>
-                        <Button onClick={handleUpload}>Upload</Button>
+                        {/* <Button onClick={handleUpload}>Upload</Button> */}
                     </Box>
                         {fieldOrder.map((key) => (
                             <TextField

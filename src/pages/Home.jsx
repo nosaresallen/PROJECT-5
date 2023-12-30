@@ -132,6 +132,7 @@ function Home () {
                                     date_posted={postRecord.date_posted.toDate()}
                                     timeElapsed={getTimeElapsed(postRecord.date_posted.toDate())}
                                     imageUrl={imageUrls}
+
                                 />
                             ))}
                             <Box>
