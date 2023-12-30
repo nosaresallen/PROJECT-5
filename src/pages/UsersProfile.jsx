@@ -114,10 +114,7 @@ function UsersProfile () {
                             Edit Profile
                         </Button>
                     </Box>
-                    <Box>
-                    <Input type="file" onChange={(e)=> {setImageUpload(e.target.files[0])}}>Upload</Input>
-                    <Button onClick={uploadImage}>Upload Image</Button>
-                    </Box>
+                    
                     
                     <Box >
                             <hr />
@@ -153,6 +150,9 @@ function UsersProfile () {
 
                         <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Edit Profile</DialogTitle>
+                    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                        <Input type="file" onChange={(e)=> {setImageUpload(e.target.files[0])}} sx={{border: 1}}>Upload</Input>
+                    </Box>
                     
                     <DialogContent>
                         {fieldOrder.map((key) => (

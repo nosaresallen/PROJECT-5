@@ -6,6 +6,7 @@ import Register from './pages/auth/Register';
 import UsersProfile from "./pages/UsersProfile";
 import AddPost from "./pages/AddPost";
 import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 
 function App() {
 
@@ -21,7 +22,8 @@ function App() {
         <Route>
             <Route path='login' element={<Login/>}/>
             <Route path='register' element={<Register/>}/>
-          </Route>
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
