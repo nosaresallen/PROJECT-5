@@ -91,7 +91,7 @@ function AddPost () {
                         fullWidth
                         id="post"
                         size="small"
-                        label={`What is the gossip, ${userData.name}?`}
+                        label={`What is the gossip?`}
                         multiline
                         color="warning"
                         maxRows={4}
