@@ -1,39 +1,47 @@
-import { Container, Box, Typography, Button, Input, dividerClasses } from "@mui/material";
+import { Container, Box, Typography, Button, Input } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
-import WorkIcon from '@mui/icons-material/Work';
-import SchoolIcon from '@mui/icons-material/School';
-import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import PhoneIcon from '@mui/icons-material/Phone';
-import PersonIcon from '@mui/icons-material/Person';
-import CakeIcon from '@mui/icons-material/Cake';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import Post from "./Post";
 
+import WorkspacesIcon from '@mui/icons-material/Workspaces';
+import InterestsIcon from '@mui/icons-material/Interests';
+import AddIcon from '@mui/icons-material/Add';
+import TransgenderIcon from '@mui/icons-material/Transgender';
+import MessageIcon from '@mui/icons-material/Message';
+import ExtensionIcon from '@mui/icons-material/Extension';
+
+import Tooltip from '@mui/material/Tooltip';
 import { Dialog, DialogTitle, DialogContent, TextField } from "@mui/material";
 
 import { useEffect, useState } from 'react';
 import firebasaApp, {storage} from './firebaseConfig';
-import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
-import { getFirestore, collection, onSnapshot, addDoc, updateDoc, doc, setDoc, getDoc } from "firebase/firestore";
+import { getDownloadURL,  ref, uploadBytes } from 'firebase/storage';
+import { getFirestore, updateDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged,getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 
 function UsersProfile () {
     const db = getFirestore(firebasaApp);
     const [open, setOpen] = useState(false);
     const [userName, setUserName] = useState('');
-    const [post, setPost] = useState([]);
     const [userId, setUserId] = useState(null);
-    const fieldOrder = ['work', 'education', 'address', 'contact', 'gender', 'birthday', 'status'];
+    const fieldOrder = [
+        'bio',
+        'zodiac',
+        'interest',
+        'age',
+        'gender',
+        'motto',
+        'hobbies'
+        ];
     const [profile, setProfile] = useState({
-        work: '',
-        education: '',
-        address: '',
-        contact: '',
-        gender: '',
-        birthday: '',
-        status: ''
+    bio: '',
+    zodiac: '',
+    interest: '',
+    age: '',
+    gender: '',
+    motto: '',
+    hobbies: ''
+
     });
 
     const handleOpen = () => {
@@ -48,12 +56,12 @@ function UsersProfile () {
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setUserId(user.uid); // Set the user ID
-                fetchUserProfile(user.uid); // Fetch user profile data
+                setUserId(user.uid); 
+                fetchUserProfile(user.uid); 
                 setUserName(user.displayName || 'No Name');
             } else {
-                setUserId(null); // Reset user ID if no user is logged in
-                setProfile({}); // Reset profile data
+                setUserId(null); 
+                setProfile({}); 
             }
         });
         return () => {
@@ -62,7 +70,7 @@ function UsersProfile () {
     }, []);
 
     const fetchUserProfile = async (userId) => {
-        const docRef = doc(db, 'usersprofile', userId);
+        const docRef = doc(db, 'userdetails', userId);
         try {
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
@@ -74,56 +82,33 @@ function UsersProfile () {
     };
 
     const handleSave = async () => {
-        const docRef = doc(db, 'usersprofile', userId);
+        const docRef = doc(db, 'userdetails', userId);
         try {
-            await setDoc(docRef, profile); // Set or update the user's profile in Firestore
+            await setDoc(docRef, profile); 
             console.log('Document updated');
             const fileName = new Date().getTime().toString() + file.name;
-            const imageRef = ref(storage, `Profiles/${userId}/${fileName}`); // Include userId in the file path
+            const imageRef = ref(storage, `Profiles/${userId}/${fileName}`); 
             await uploadBytes(imageRef, file);
     
             const downloadURL = await getDownloadURL(imageRef);
-            saveImageUrlToFirestore(downloadURL); // Save the URL to Firestore
+            saveImageUrlToFirestore(downloadURL); 
         } catch (error) {
             console.error('Error updating document:', error);
         }
         setOpen(false);
     };
-    // const handleEdit = () => {
-    //     const updatePost = doc(db, 'posts', postID);
-    //     updateDoc(updatePost, { caption: editedCaption });
-    //     handleClose(false); // Exit edit mode after saving
-    // };
 
     //Firebase storage
     const [file, setFile] = useState(null);
-    const [imageUpload, setImageUpload] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const [uploadError, setUploadError] = useState('');
-
-    // const handleUpload = async () => {
-    //     try {
-    //         const fileName = new Date().getTime().toString() + file.name;
-    //         const imageRef = ref(storage, `Profiles/${userId}/${fileName}`); // Include userId in the file path
-    //         await uploadBytes(imageRef, file);
-    
-    //         const downloadURL = await getDownloadURL(imageRef);
-    //         saveImageUrlToFirestore(downloadURL); // Save the URL to Firestore
-    //     } catch (error) {
-    //         console.error('Error uploading image:', error);
-    //         setUploadError('Error uploading image. Please try again.');
-    //     }
-    // };
     
     const saveImageUrlToFirestore = async (downloadURL) => {
-        const userRef = doc(db, 'usersprofile', userId); // Assuming 'usersprofile' is your collection
+        const userRef = doc(db, 'userdetails', userId); 
         try {
-            await updateDoc(userRef, { imageUrl: downloadURL }); // Save imageUrl to Firestore
-            setImageUrl(downloadURL); // Update state with the image URL
-            setUploadError(''); // Clear any previous upload error
+            await updateDoc(userRef, { imageUrl: downloadURL }); 
+            setImageUrl(downloadURL); 
         } catch (error) {
             console.error('Error updating image URL in Firestore:', error);
-            setUploadError('Error saving image URL. Please try again.');
         }
     };
     
@@ -131,12 +116,12 @@ function UsersProfile () {
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setUserId(user.uid); // Set the user ID
-                fetchUserProfiles(user.uid); // Fetch user profile data
+                setUserId(user.uid); 
+                fetchUserProfiles(user.uid); 
                 setUserName(user.displayName || 'No Name');
             } else {
-                setUserId(null); // Reset user ID if no user is logged in
-                setProfile({}); // Reset profile data
+                setUserId(null); 
+                setProfile({});
             }
         });
         return () => {
@@ -145,13 +130,13 @@ function UsersProfile () {
     }, []);
     
     const fetchUserProfiles = async (userId) => {
-        const docRef = doc(db, 'usersprofile', userId);
+        const docRef = doc(db, 'userdetails', userId);
         try {
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const userData = docSnap.data();
-                setProfile(userData); // Set other profile data
-                setImageUrl(userData.imageUrl); // Set the image URL from Firestore
+                setProfile(userData); 
+                setImageUrl(userData.imageUrl); 
             }
         } catch (error) {
             console.error('Error fetching document:', error);
@@ -160,7 +145,7 @@ function UsersProfile () {
     
     useEffect(() => {
         if (userId) {
-            fetchUserProfile(userId); // Fetch user profile including image URL
+            fetchUserProfile(userId); 
         }
     }, [userId]);
 
@@ -174,51 +159,55 @@ function UsersProfile () {
                         ) : (
                             <Avatar alt="Profile" sx={{ width: 100, height: 100 }} />
                         )}
-                
+                        <Tooltip title="Edit Profile" placement="right">
+                            <EditNoteIcon sx={{marginX: -2, marginTop: 10, color: '#14213d' }} onClick={handleOpen}/>
+                        </Tooltip>
                     </Box>
-                    <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
+                    
+                    <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '10px'}}>
                         <Typography  variant="h5">
                             <strong>{userName}</strong>
                         </Typography>
                     </Box>
-                    <Box  sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
+                    <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
+                        <Typography  variant="p">
+                            {profile.bio}
+                        </Typography>
+                    </Box>
+                    {/* <Box  sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                         
                         <Button sx={{ bgcolor: '#14213d',transition: 'background-color 0.3s',
                             '&:hover':{bgcolor: '#f9bc60'}}} onClick={handleOpen} variant="contained">
                             Edit Profile
                         </Button>
-                    </Box>
+                    </Box> */}
                     
                     
                     <Box >
                             <hr />
 
                             <Typography variant="body1">
-                            <WorkIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Work:</strong> {profile.work}
+                            <WorkspacesIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Zodiac:</strong> <em>{profile.zodiac}</em>
                             </Typography>
 
                             <Typography variant="body1">
-                            <SchoolIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Education:</strong> {profile.education}
+                            <InterestsIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Interest:</strong> <em>{profile.interest}</em>
                             </Typography>
 
                             <Typography variant="body1">
-                            <FmdGoodIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Address:</strong> {profile.address}
+                            <AddIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Age:</strong> <em>{profile.age}</em>
                             </Typography>
 
                             <Typography variant="body1">
-                            <PhoneIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Contact:</strong> {profile.contact}
+                            <TransgenderIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Gender:</strong> <em>{profile.gender}</em>
                             </Typography>
 
                             <Typography variant="body1">
-                            <PersonIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Gender:</strong> {profile.gender}
+                            <MessageIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Motto:</strong> <em>{profile.motto}</em>
                             </Typography>
 
                             <Typography variant="body1">
-                            <CakeIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Birthday:</strong> {profile.birthday}
-                            </Typography>
-
-                            <Typography variant="body1">
-                            <FavoriteIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Status:</strong> {profile.status}
+                            <ExtensionIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Hobbies:</strong> <em>{profile.hobbies}</em>
                             </Typography>
                         </Box>
 

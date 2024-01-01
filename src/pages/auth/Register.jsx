@@ -123,7 +123,7 @@ function Register () {
                         id='name'
                         type='name'
                         name='name'
-                        label='Full name'
+                        label='Username'
                         value={name}
                         onChange={(e)=>setName(e.target.value)}
                     />

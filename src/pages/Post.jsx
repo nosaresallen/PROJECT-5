@@ -82,18 +82,20 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
             <Container component='main' maxWidth='xl' sx={{padding: 0, margin: 0}}>
             <Card  sx={{
                 maxWidth: '100%',
-                marginTop: '5px',
-                backgroundColor: 'white',
-                borderRadius: '0px',
-                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                backdropFilter: 'blur(5px)',
-                WebkitBackdropFilter: 'blur(5px)',
-                borderColor: '#004643',
+                marginTop: '3px',
+                borderLeft: 3,
+                backgroundColor: '#FEFCF3',
+                borderRadius: '10px',
+                borderColor: '#14213d',
                 padding: 0,
                 }}
                 >
             <CardHeader
-                avatar={<Avatar src={imageUrl} sx={{fontSize:12}}></Avatar>}
+                avatar={
+                <Tooltip title="This feature is not yet available" placement="bottom">
+                    <Avatar src={imageUrl} sx={{fontSize:12}}></Avatar>
+                </Tooltip>}
+                
                 title={<strong>{name}<VerifiedIcon sx={{fontSize: 13, color: '#f9bc60', marginY: '-1px'}}/></strong>}
                 subheader= {<small><PublicIcon sx={{fontSize: 13, color: 'grey', marginY: "-2px"}}/> · {timeElapsed}</small> }
                 action={

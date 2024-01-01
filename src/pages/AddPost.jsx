@@ -1,5 +1,4 @@
-import { Container, Box, Typography, TextField } from "@mui/material";
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import { Container, Box, TextField, Avatar } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -64,33 +63,19 @@ function AddPost () {
         
     }, [])
 
-    const handleImage = ()=>{
-        alert('This feature is not yet available');
-    }
-
-
     return (
         <>
-            <Container component='main' maxWidth='md' sx={{bgcolor: 'white', borderRadius: 0, boxShadow: 2, position:'sticky', padding: 2, marginTop: 1}} >
+            <Container component='main' maxWidth='md' sx={{borderColor: '#14213d',
+                borderLeft: 3, bgcolor: '#FEFCF3', borderRadius: '10px', boxShadow: 2, position:'sticky', padding: 2, marginTop: 1}} >
                 <Box >
-                    {/* <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
-                        <Avatar sx={{ width: 100, height: 100 }}>
-                        </Avatar>
-                        
-                    </Box> */}
-                    <Box sx={{ marginBottom: 1, marginTop: 2}}>
-                    <Typography sx={{ fontSize: 15 }}>
-                        Spill the gossip, <strong style={{color: '#f9bc60'}}>{userData.name}!</strong> <br />
-                    </Typography>
-                        
-                    </Box>
                     <Box sx={{ marginBottom: '20px', display: 'flex'}}>
-                        
+                    {/* <Avatar sx={{ width: 40, height: 40 }}>
+                        </Avatar> */}
                         <TextField
                         fullWidth
                         id="post"
                         size="small"
-                        label="What is the gossip?"
+                        label={`What is the gossip, ${userData.name}?`}
                         multiline
                         color="warning"
                         maxRows={4}
@@ -99,14 +84,11 @@ function AddPost () {
                         value={post}
                         />
                         <Box>
-                        <Tooltip title="Upload Image" placement="top">
-                            {/* <IconButton  >
-                                
-                            </IconButton> */}
+                        {/* <Tooltip title="Upload Image" placement="top">
                             <InsertPhotoIcon onClick={handleImage}  sx={{color: '#14213d', fontSize: 16, marginY: 3, marginX: 2}}/>
-                        </Tooltip>
+                        </Tooltip> */}
                         <Tooltip title="Post" placement="top">
-                            <SendIcon  onClick={createPost} sx={{color: '#f9bc60', fontSize: 16, marginY: 3, marginX: -1}}/>
+                            <SendIcon  onClick={createPost} sx={{color: '#f9bc60', fontSize: 25, marginY: -3, marginX: 0}}/>
                         </Tooltip>
                         </Box>
                         
