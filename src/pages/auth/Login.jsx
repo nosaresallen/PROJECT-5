@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import CoffeeTwoToneIcon from '@mui/icons-material/CoffeeTwoTone';
+import LoginIcon from '@mui/icons-material/Login';
 
 import Swal from 'sweetalert2'
 
@@ -91,7 +91,7 @@ function Login () {
                 }}>
                     
                     <Avatar sx={{ marginTop: '-20px', bgcolor: '#14213d', marginBottom: '10px' }}>
-                        <CoffeeTwoToneIcon />
+                        <LoginIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5" sx={{ fontWeight: "bold", color: '#001e1d' }}>
                         Login

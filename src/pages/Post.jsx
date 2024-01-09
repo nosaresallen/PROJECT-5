@@ -118,6 +118,7 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
                                 vertical: 'top',
                                 horizontal: 'right',
                                 }}
+                                
                             >
                                 <MenuItem onClick={handleOpen}>
                                     <EditIcon sx={{ fontSize: 18, marginRight: 1 }} />
@@ -138,8 +139,8 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">Edit caption</DialogTitle>
-                <DialogContent>
+                <DialogTitle id="alert-dialog-title" >Edit caption</DialogTitle>
+                <DialogContent sx={{width:500}}>
                     <TextField
                         autoFocus
                         margin="dense"
@@ -165,12 +166,6 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
                             {isEditMode ? editedCaption : caption}
                         </Typography>
                     </CardContent>
-                    {/* <CardMedia
-                        component="img"
-                        height="194"
-                        image="https://www.techspot.com/images2/trivia/bigimage/2017/2017-03-19-image-46.jpg"
-                        alt="Paella dish"
-                    /> */}
                     {/* <CardActions sx={{display: 'flex', justifyContent: 'flex-start', padding: 1}}>
                     <IconButton aria-label="like" onClick={handleLikeClick}>
                         {liked ? (

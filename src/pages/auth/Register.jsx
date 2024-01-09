@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import CoffeeTwoToneIcon from '@mui/icons-material/CoffeeTwoTone';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 import Swal from 'sweetalert2';
 
@@ -26,7 +26,7 @@ function Register () {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // window.location.reload();
+                window.location.reload();
                 navigate('/');
                 
                 
@@ -34,10 +34,6 @@ function Register () {
         });
 
     },[]);
-
-    // setTimeout(() => {
-    //     window.location.reload();
-    // }, 5);
 
     const handleRegister = () => {
         if (
@@ -109,7 +105,7 @@ function Register () {
                 }}>
                     
                     <Avatar sx={{ marginTop: '-20px', bgcolor: '#14213d', marginBottom: '10px' }}>
-                        <CoffeeTwoToneIcon />
+                        <AppRegistrationIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5" sx={{ fontWeight: "bold", color: '#001e1d' }}>
                         Register

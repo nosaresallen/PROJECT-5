@@ -24,7 +24,10 @@ function About () {
                     <hr />
                     <Box sx={{marginTop: '20px'}}>
                         <Typography variant="body1" sx={{color: '#14213d'}}>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. At, unde nesciunt consequuntur odio provident a fugiat odit! Nihil sunt earum atque, quaerat quae suscipit a ab vitae placeat eveniet sapiente deleniti aliquam voluptatibus mollitia voluptas nobis rerum odio saepe illum recusandae necessitatibus quibusdam culpa praesentium. Error dolorem et totam quidem.
+                        {`Gossip is a Social Media Application develop by Allen Nosares @ BASE404 Bootcamp.
+                        "Gossip" is a simple app where you can anonymously share text-based gossips. 
+                        Share your thoughts, update your profile, and discover what others are gossiping about. 
+                        It's the ideal place to express yourself, connect with others, and stay informed within your social circle.`}
                         </Typography>
                     </Box>
                 </Box>
