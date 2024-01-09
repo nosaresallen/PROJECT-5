@@ -16,7 +16,6 @@ import { useState, useEffect} from 'react';
 
 function Register () {
     const [name, setName] = useState('');
-    const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -38,7 +37,7 @@ function Register () {
 
     const handleRegister = () => {
         if (
-            username !== '' && 
+            name !== '' && 
             email !== '' && 
             password !== '' && 
             confirmPassword !== '' && 
@@ -48,7 +47,7 @@ function Register () {
                 (useCredentials) => {
                     const user = useCredentials.user;
                     updateProfile(auth.currentUser,{
-                        displayName: username
+                        displayName: name
                     })
                     
                 })
@@ -86,16 +85,6 @@ function Register () {
     return (
         <>
             <Container component='main' maxWidth='xs'>
-                {/* <Typography component="h1" variant="h5"
-                sx={{
-                    marginTop: "50px",
-                    color: '#E78FB3',
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexDirection: 'column'
-                }}>
-                    Welcome to <span style={{color: '#55423D', fontWeight: "bold",}}>Teasmis</span>
-                </Typography> */}
                 <Box  sx={{
                     marginTop: 1,
                     display: 'flex',
@@ -117,12 +106,12 @@ function Register () {
                         fullWidth
                         color='warning'
                         size="small"
-                        id='username'
-                        type='username'
-                        name='username'
+                        id='name'
+                        type='name'
+                        name='name'
                         label='Username'
-                        value={username}
-                        onChange={(e)=>setUserName(e.target.value)}
+                        value={name}
+                        onChange={(e)=>setName(e.target.value)}
                     />
                     <TextField
                         margin='normal'
