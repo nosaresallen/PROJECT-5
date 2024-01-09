@@ -30,7 +30,7 @@ function Register () {
                     setName(user.displayName);
                 }
                 navigate('/');
-                window.location.reload();
+                // window.location.reload();
             }
         });
     }, [auth, navigate]);
