@@ -16,6 +16,7 @@ import { useState, useEffect} from 'react';
 
 function Register () {
     const [name, setName] = useState('');
+    const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,7 +38,7 @@ function Register () {
 
     const handleRegister = () => {
         if (
-            name !== '' && 
+            username !== '' && 
             email !== '' && 
             password !== '' && 
             confirmPassword !== '' && 
@@ -47,7 +48,7 @@ function Register () {
                 (useCredentials) => {
                     const user = useCredentials.user;
                     updateProfile(auth.currentUser,{
-                        displayName: name
+                        displayName: username
                     })
                     
                 })
@@ -116,12 +117,12 @@ function Register () {
                         fullWidth
                         color='warning'
                         size="small"
-                        id='name'
-                        type='name'
-                        name='name'
+                        id='username'
+                        type='username'
+                        name='username'
                         label='Username'
-                        value={name}
-                        onChange={(e)=>setName(e.target.value)}
+                        value={username}
+                        onChange={(e)=>setUserName(e.target.value)}
                     />
                     <TextField
                         margin='normal'
