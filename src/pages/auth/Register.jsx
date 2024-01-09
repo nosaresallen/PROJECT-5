@@ -43,13 +43,15 @@ function Register () {
             confirmPassword !== '' && 
             password === confirmPassword 
             ){
-            createUserWithEmailAndPassword(auth, email, password).then(
-                (useCredentials) => {
+                createUserWithEmailAndPassword(auth, email, password)
+                .then((useCredentials) => {
                     const user = useCredentials.user;
-                    updateProfile(auth.currentUser,{
+                    updateProfile(auth.currentUser, {
                         displayName: name
-                    })
-                    
+                    }).then(() => {
+                        setName(name);
+                        navigate('/');
+                    });
                 })
                 .catch(() => {
                     Swal.fire({
