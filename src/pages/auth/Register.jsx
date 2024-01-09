@@ -30,7 +30,9 @@ function Register () {
                     setName(user.displayName);
                 }
                 navigate('/');
-                // window.location.reload();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 250);
             }
         });
     }, [auth, navigate]);
