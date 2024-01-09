@@ -26,14 +26,13 @@ function Register () {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                
+                if (user.displayName) {
+                    setName(user.displayName);
+                }
                 navigate('/');
-                window.location.reload();
-                
             }
         });
-
-    },[]);
+    }, [auth, navigate]);
 
     const handleRegister = () => {
         if (

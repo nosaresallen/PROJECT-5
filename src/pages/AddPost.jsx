@@ -73,9 +73,9 @@ function AddPost () {
         <>
             <Container component='main' maxWidth='md' sx={{borderColor: '#14213d',
                 borderLeft: 3, bgcolor: '#FEFCF3', borderRadius: '10px', boxShadow: 2, position:'sticky', padding: 2, marginTop: 1}} >
-                    <Typography sx={{ fontSize: 15 }}>
+                    {/* <Typography sx={{ fontSize: 15 }}>
                         Spill the gossip, <strong style={{color: '#f9bc60'}}>{userData.name}!</strong> <br />
-                    </Typography>
+                    </Typography> */}
                 <Box >
                     {/* <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                         <Avatar sx={{ width: 100, height: 100 }}>
