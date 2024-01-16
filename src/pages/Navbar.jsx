@@ -1,47 +1,10 @@
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Avatar, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 
-import Swal from 'sweetalert2';
-import firebasaApp from './firebaseConfig';
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { getAuth, signOut  } from "firebase/auth";
-
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Tooltip from '@mui/material/Tooltip';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import InfoIcon from '@mui/icons-material/Info';
-
-
-
+import { Link as RouterLink} from "react-router-dom";
 function Navbar () {
-
-    let navigate = useNavigate();
-    
-        //Logout function
-        const handleLogout = () => {
-            Swal.fire({
-                toast: true,
-                title: 'Log out of your account?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#14213d',
-                cancelButtonColor: '#f9bc60',
-                confirmButtonText: 'Logout'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const auth = getAuth(firebasaApp); 
-                    signOut(auth)
-                        .then(() => {
-                            navigate('/login');
-                        })
-                        .catch((error) => {
-                            console.log('Error during logout:', error);
-                    });
-                }
-            });
-        };
 
     return (
         <Box sx={{flexGrow: 1, marginBottom: 10}}>
@@ -53,7 +16,7 @@ function Navbar () {
             display: 'flex',
             justifyContent: 'center'
             }}>
-            <Grid sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <Grid sx={{display: 'flex', justifyContent: 'center'}}>
                 <Grid sx={{marginX: 2}}> 
                 <RouterLink to='/' style={{textDecoration: 'none', color: '#f9bc60'}}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -65,26 +28,7 @@ function Navbar () {
                 </RouterLink>
                 
                 </Grid>
-                <Grid>
-                <Box sx={{ display: 'flex', alignItems: 'center', marginX:1 }}>
-                            <RouterLink to='/usersprofile' >
-                                <Tooltip title="Profile" placement="bottom">
-                                    <AccountCircleIcon sx={{fontSize: 28, color: '#f9bc60', marginRight: 2}}/>
-                                </Tooltip>
-                            </RouterLink>
-                            <RouterLink to='/about' >
-                                <Tooltip title="About" placement="bottom">
-                                    <InfoIcon sx={{fontSize: 28, color: '#f9bc60', marginRight: 2}}/>
-                                </Tooltip>
-                            </RouterLink>
-                            <RouterLink onClick={handleLogout}>
-                                <Tooltip title="Logout" placement="bottom">
-                                <LogoutOutlinedIcon sx={{fontSize: 28, color: '#f9bc60'}}/>
-                                </Tooltip>
-                                
-                            </RouterLink>
-                        </Box>
-                </Grid>
+                
             </Grid>
             
         </AppBar>

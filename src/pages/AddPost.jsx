@@ -1,6 +1,4 @@
-import { Container, Box, Typography, TextField } from "@mui/material";
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import SendIcon from '@mui/icons-material/Send';
+import { Container, Box, Typography, TextField, Card, Avatar, CardHeader, Button } from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
 
 import Swal from 'sweetalert2';
@@ -64,30 +62,28 @@ function AddPost () {
         
     }, [])
 
-    const handleImage = ()=>{
-        alert('This feature is not yet available');
-    }
-
-
     return (
         <>
-            <Container component='main' maxWidth='md' sx={{borderColor: '#14213d',
-                borderLeft: 3, bgcolor: '#FEFCF3', borderRadius: '10px', boxShadow: 2, position:'sticky', padding: 2, marginTop: 1}} >
-                    {/* <Typography sx={{ fontSize: 15 }}>
-                        Spill the gossip, <strong style={{color: '#f9bc60'}}>{userData.name}!</strong> <br />
-                    </Typography> */}
-                <Box >
-                    {/* <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
-                        <Avatar sx={{ width: 100, height: 100 }}>
-                        </Avatar>
-                        
-                    </Box> */}
+            <Container component='main' maxWidth='xl'  >
+                    
+            <Card  sx={{
+                maxWidth: '100%',
+                marginTop: '3px',
+                padding: 0,
+                }}
+                >
+            <CardHeader
+                avatar={
+                <Tooltip title="This feature is not yet available" placement="bottom">
+                    <Avatar sx={{fontSize:12}}></Avatar>
+                </Tooltip>}
+                title={<Typography>Spill the gossip, <strong>{userData.name}!🤭</strong></Typography>}>
+            </CardHeader>
                     <Box sx={{ marginBottom: 1, marginTop: 2}}>
                     
                         
                     </Box>
-                    <Box sx={{ marginBottom: '20px', display: 'flex'}}>
-                        
+                    <Box sx={{ marginBottom: '20px', display: 'flex', marginRight: 2, marginLeft: 2}}>
                         <TextField
                         fullWidth
                         id="post"
@@ -96,23 +92,27 @@ function AddPost () {
                         multiline
                         color="warning"
                         maxRows={4}
-                        variant="standard"
+                        variant="outlined"
                         onChange={(e)=>{setPost(e.target.value)}}
                         value={post}
                         />
                         <Box>
-                        {/* <Tooltip title="Upload Image" placement="top">
-                            <InsertPhotoIcon onClick={handleImage}  sx={{color: '#14213d', fontSize: 16, marginY: 3, marginX: 2}}/>
-                        </Tooltip> */}
-                        <Tooltip title="Post" placement="top">
+                        {/* <Tooltip title="Post" placement="top">
                             <SendIcon  onClick={createPost} sx={{color: '#f9bc60', fontSize: 25, marginY: -3, marginX: 0}}/>
-                        </Tooltip>
+                        </Tooltip> */}
                         </Box>
-                        
-                        
-                        
                     </Box>
-                </Box>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10, marginRight: 17}}>
+                    <Button
+                        variant="contained"
+                        size="small"
+                        onClick={createPost}
+                        style={{ width: '50px', height: '30px', backgroundColor: '#f9bc60' }}
+                    >
+                        Post
+                    </Button>
+                    </div>
+                </Card>
                 {/* <Card sx={{ maxWidth: '100%', marginTop: '5px', bgcolor: 'white', marginBottom: 3 }}>
                     
                     <CardContent  sx={{ borderColor: 'black', border:0}}>

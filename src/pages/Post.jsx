@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
@@ -83,10 +83,6 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
             <Card  sx={{
                 maxWidth: '100%',
                 marginTop: '3px',
-                borderLeft: 3,
-                backgroundColor: '#FEFCF3',
-                borderRadius: '10px',
-                borderColor: '#14213d',
                 padding: 0,
                 }}
                 >
@@ -166,7 +162,7 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
                             {isEditMode ? editedCaption : caption}
                         </Typography>
                     </CardContent>
-                    {/* <CardActions sx={{display: 'flex', justifyContent: 'flex-start', padding: 1}}>
+                    <CardActions sx={{display: 'flex', justifyContent: 'flex-start', padding: 1}}>
                     <IconButton aria-label="like" onClick={handleLikeClick}>
                         {liked ? (
                             <FavoriteIcon sx={{ fontSize: 20, color: '#f9bc60' }} />
@@ -174,8 +170,15 @@ function Post ({postID, name, caption, email, timeElapsed, imageUrl}) {
                             <FavoriteBorderOutlinedIcon sx={{ fontSize: 20, color: 'grey' }} />
                         )}
                     </IconButton>
-                        
-                    </CardActions> */}
+                    
+                    <IconButton aria-label="comment" >
+                        <ChatBubbleOutlineIcon sx={{ fontSize: 20, color: 'grey' }}/>
+                    </IconButton>
+                    
+                    <IconButton aria-label="share" >
+                        <ShareIcon sx={{ fontSize: 20, color: 'grey' }}/>
+                    </IconButton>
+                    </CardActions>
                 </Card>
             </Container>
         </>

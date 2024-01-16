@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
     palette: {
@@ -16,12 +16,11 @@ function Layout () {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Navbar></Navbar>
-                <Outlet></Outlet>
+                <Navbar />
+                <Outlet />
             </ThemeProvider>
-            
         </>
-    )
+    );
 }
 
-export default Layout
+export default Layout;

@@ -67,7 +67,7 @@ function UsersProfile () {
         return () => {
             unsubscribe();
         };
-    }, []);
+    }, [userId]);
 
     const fetchUserProfile = async (userId) => {
         const docRef = doc(db, 'userdetails', userId);
@@ -80,6 +80,7 @@ function UsersProfile () {
             console.error('Error fetching document:', error);
         }
     };
+    
 
     const handleSave = async () => {
         const docRef = doc(db, 'userdetails', userId);

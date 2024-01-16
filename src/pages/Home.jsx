@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Post from "./Post";
 import AddPost from './AddPost';
 import Footer from './Footer';
+import Sidebar from './Sidebar';
 import Tooltip from '@mui/material/Tooltip';
 
 import Grid from '@mui/material/Unstable_Grid2';
@@ -119,9 +120,10 @@ function Home () {
                 <Box >
                     <Grid container spacing={2}>
                         <Grid  xs={12} md={3}>
-                            <AddPost></AddPost>
+                            <Sidebar></Sidebar>
                         </Grid>
                         <Grid xs={12} md={6}>
+                            <AddPost></AddPost>
                             {sortedPosts.map((postRecord) => (
                                 <Post 
                                     key={postRecord.id}

@@ -1,15 +1,4 @@
-import { Container, Box, Typography, Button } from "@mui/material";
-import Avatar from '@mui/material/Avatar';
-import WorkIcon from '@mui/icons-material/Work';
-import SchoolIcon from '@mui/icons-material/School';
-import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import PhoneIcon from '@mui/icons-material/Phone';
-import PersonIcon from '@mui/icons-material/Person';
-import CakeIcon from '@mui/icons-material/Cake';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
-
-import { TextField } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
 
 function About () {
     return (
