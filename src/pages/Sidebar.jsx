@@ -73,7 +73,7 @@ function Sidebar(){
                 </Typography>
             </Button>
 
-            <Button sx={{
+            {/* <Button sx={{
             display: 'flex',
             justifyContent: 'flex-start',
             color: 'black',
@@ -86,9 +86,9 @@ function Sidebar(){
                 <Typography sx={{marginLeft: 1}}>
                 {isSmallScreen ? null : 'Search'}
                 </Typography>
-            </Button>
+            </Button> */}
 
-            <Button sx={{
+            {/* <Button sx={{
             display: 'flex',
             justifyContent: 'flex-start',
             color: 'black',
@@ -101,7 +101,7 @@ function Sidebar(){
                 <Typography sx={{marginLeft: 1}}>
                 {isSmallScreen ? null : 'Explore'}
                 </Typography>
-            </Button>
+            </Button> */}
 
             <Button sx={{
             display: 'flex',
@@ -118,7 +118,7 @@ function Sidebar(){
                 </Typography>
             </Button>
 
-            <Button sx={{
+            {/* <Button sx={{
             display: 'flex',
             justifyContent: 'flex-start',
             color: 'black',
@@ -131,7 +131,7 @@ function Sidebar(){
                 <Typography sx={{marginLeft: 1}}>
                 {isSmallScreen ? null : 'Notifications'}
                 </Typography>
-            </Button>
+            </Button> */}
 
             {/* RouterLink to='/usersprofile'  */}
             <RouterLink to='/about' style={{textDecoration: 'none', color: 'black'}}>
@@ -196,7 +196,6 @@ function Sidebar(){
             justifyContent: isSmallScreen ? 'space-between' : 'flex-start',
             }}
         >
-             
         </Card> */}
         </Container>
     );
