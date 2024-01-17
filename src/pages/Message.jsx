@@ -1,4 +1,4 @@
-import { Container, Box, TextField, Card, CardHeader, Typography } from "@mui/material";
+import { Container, Box, TextField, Card, CardHeader } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
@@ -6,16 +6,26 @@ import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
+import Footer from './Footer';
+import Sidebar from './Sidebar';
+
+import Grid from '@mui/material/Unstable_Grid2';
 function Message () {
 
     const handleClick = () => {
         alert('You clicked the Chip.');
-      };
+    };
     
     return (
         <>
-            <Container component='main' maxWidth='xs'  sx={{marginTop: '120px', height:'100vh'}} >
+            <Container component='main' maxWidth='xl' sx={{marginTop: 0, padding: 0}} >
                 <Box >
+                <Grid container spacing={2}>
+                    <Grid  xs={12} md={3}>
+                        <Sidebar></Sidebar>
+                    </Grid>
+
+                    <Grid xs={12} md={6}>
                     <TextField fullWidth size="small" label="Search" ></TextField>
                     <Stack direction="row" spacing={1} sx={{display:"flex", justifyContent: 'space-evenly', marginTop: 1}}>
                         <Chip label="Messages" onClick={handleClick} />
@@ -89,7 +99,11 @@ function Message () {
                         subheader="Inspired by your work. Partner?"
                     />
                     </Card>
-                            
+                    </Grid>
+                    <Grid xs={12} md={3}>
+                        <Footer></Footer>
+                    </Grid>
+                </Grid>
                 </Box>
 
             </Container>

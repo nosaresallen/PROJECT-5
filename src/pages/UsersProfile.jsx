@@ -18,6 +18,11 @@ import { getFirestore, updateDoc, doc, setDoc, getDoc } from "firebase/firestore
 import { onAuthStateChanged,getAuth } from "firebase/auth";
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
+import Footer from './Footer';
+import Sidebar from './Sidebar';
+
+import Grid from '@mui/material/Unstable_Grid2';
+
 
 function UsersProfile () {
     const db = getFirestore(firebasaApp);
@@ -152,8 +157,14 @@ function UsersProfile () {
 
     return (
         <>
-            <Container component='main' maxWidth='xs'  sx={{marginTop: '120px', height:'100vh'}} >
+            <Container component='main' maxWidth='xl' sx={{marginTop: 0, padding: 0}} >
                 <Box  >
+                <Grid container spacing={2}>
+                    <Grid  xs={12} md={3}>
+                        <Sidebar></Sidebar>
+                    </Grid>
+
+                    <Grid xs={12} md={6}>
                     <Box sx={{display:"flex", justifyContent: 'center', marginBottom: '20px'}}>
                     {imageUrl ? (
                             <Avatar src={imageUrl} alt="Profile" sx={{ width: 100, height: 100 }} />
@@ -184,7 +195,7 @@ function UsersProfile () {
                     </Box> */}
                     
                     
-                    <Box >
+                    <Box  textAlign="center" >
                             <hr />
 
                             <Typography variant="body1">
@@ -210,7 +221,7 @@ function UsersProfile () {
                             <Typography variant="body1">
                             <ExtensionIcon sx={{marginLeft:'25px'}} fontSize="small"/><strong> Hobbies:</strong> <em>{profile.hobbies}</em>
                             </Typography>
-                        </Box>
+                    </Box>
 
                         <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Edit Profile</DialogTitle>
@@ -245,6 +256,13 @@ function UsersProfile () {
                         </Box>
                     </DialogContent>
                 </Dialog>
+                    </Grid>
+
+                    <Grid xs={12} md={3}>
+                        <Footer></Footer>
+                    </Grid>
+                </Grid>
+                    
                 </Box>
 
             </Container>

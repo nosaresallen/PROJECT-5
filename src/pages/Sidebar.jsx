@@ -4,10 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
@@ -46,11 +43,6 @@ function Sidebar(){
             });
         };
 
-        const handleRefresh = () => {
-            // Reload the page
-            window.location.reload();
-        };
-
     return (
         <Container component="main" maxWidth="xl">
         <Card
@@ -63,6 +55,8 @@ function Sidebar(){
             justifyContent: isSmallScreen ? 'space-between' : 'flex-start',
             }}
         >
+
+            <RouterLink to='/' style={{textDecoration: 'none', color: 'black'}}>
             <Button sx={{
             display: 'flex',
             justifyContent: 'flex-start',
@@ -71,13 +65,13 @@ function Sidebar(){
                 color: '#f9bc60',
             },
             }}
-            onClick={handleRefresh}
             >
-            <HomeOutlinedIcon />
+                <HomeOutlinedIcon />
                 <Typography sx={{marginLeft: 1}}>
                 {isSmallScreen ? null : 'Home'}
                 </Typography>
             </Button>
+            </RouterLink>
 
             {/* <Button sx={{
             display: 'flex',
