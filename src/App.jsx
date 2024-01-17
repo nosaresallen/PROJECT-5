@@ -7,6 +7,7 @@ import UsersProfile from "./pages/UsersProfile";
 import AddPost from "./pages/AddPost";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import Message from "./pages/Message";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='usersprofile' element={<UsersProfile/>}/>
           <Route path='addpost' element={<AddPost/>}/>
           <Route path='about' element={<About/>}/>
+          <Route path='message' element={<Message/>}/>
         </Route>
         <Route>
             <Route path='login' element={<Login/>}/>

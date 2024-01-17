@@ -46,6 +46,11 @@ function Sidebar(){
             });
         };
 
+        const handleRefresh = () => {
+            // Reload the page
+            window.location.reload();
+        };
+
     return (
         <Container component="main" maxWidth="xl">
         <Card
@@ -66,6 +71,7 @@ function Sidebar(){
                 color: '#f9bc60',
             },
             }}
+            onClick={handleRefresh}
             >
             <HomeOutlinedIcon />
                 <Typography sx={{marginLeft: 1}}>
@@ -103,6 +109,7 @@ function Sidebar(){
                 </Typography>
             </Button> */}
 
+            <RouterLink to='/message' style={{textDecoration: 'none', color: 'black'}}>
             <Button sx={{
             display: 'flex',
             justifyContent: 'flex-start',
@@ -117,6 +124,7 @@ function Sidebar(){
                 {isSmallScreen ? null : 'Messages'}
                 </Typography>
             </Button>
+            </RouterLink>
 
             {/* <Button sx={{
             display: 'flex',

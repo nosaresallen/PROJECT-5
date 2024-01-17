@@ -5,7 +5,7 @@ import { onAuthStateChanged,getAuth } from "firebase/auth";
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import {  Box,  Container, Typography,} from "@mui/material";
-import ReplayIcon from '@mui/icons-material/Replay';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import IconButton from '@mui/material/IconButton';
 import Post from "./Post";
 import AddPost from './AddPost';
@@ -103,16 +103,11 @@ function Home () {
     //Sort post by date_posted in desceding order
     const sortedPosts = [...post].sort((a, b) => b.date_posted.toDate() - a.date_posted.toDate());
 
-    const refreshAndScrollToTop = () => {
+    const backTopTop = () => {
         window.scrollTo({
             top: 0,
             behavior: 'auto'
         });
-    
-        // Reload the page after a short delay to ensure it starts at the top
-        setTimeout(() => {
-            window.location.reload();
-        }, 200); // Refresh after 100 milliseconds (adjust this value as needed)
     };
     return (
         <>
@@ -139,10 +134,10 @@ function Home () {
                             ))}
                             <Box>
                             <Typography sx={{fontSize:'12px',marginTop: 1, display:'flex', justifyContent:'center', color: '#14213d'}}>
-                                No post available
-                                <Tooltip title="Refresh" placement="top">
-                                    <IconButton onClick={refreshAndScrollToTop}>
-                                        <ReplayIcon sx={{ marginY:-2, marginX: 0, color: '#14213d'}}/>
+                                Back to top
+                                <Tooltip title="Back to top" placement="top">
+                                    <IconButton onClick={backTopTop}>
+                                        <ArrowUpwardOutlinedIcon sx={{ marginY:-2, marginX: 0, color: '#14213d'}}/>
                                     </IconButton>
                                 </Tooltip>
                             </Typography>
